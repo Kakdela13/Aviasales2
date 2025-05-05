@@ -1,12 +1,27 @@
 import "./Ticket.css";
 import logoS7 from "../../s7-logo.svg";
-import { TTicketProps } from "../../TypeScript/TypeScript";
+import { TSegment, TTicketProps } from "../../TypeScript/TypeScript";
+import { format } from "date-fns";
 
-export const Ticket: React.FC<TTicketProps> = ({
-  ticket,
-  getTime,
-  formatTransfer,
-}) => {
+const getTime = (segment: TSegment) => {
+  const departureDate = new Date(segment.date);
+  const arrivalDate = new Date(departureDate.getMinutes() + segment.duration);
+  return `${format(departureDate, "HH:mm")} - ${format(arrivalDate, "HH:mm")}`;
+};
+
+const formatTransfer = (count: number): string => {
+  if (count === 0) return "ПРЯМОЙ";
+  {
+    if (count === 1) {
+      return `${count} ПЕРЕСАДКА`;
+    } else if (count === 2 && count <= 4) {
+      return `${count} ПЕРЕСАДКИ`;
+    } else {
+      return `${count} ПЕРЕСАДОК`;
+    }
+  }
+};
+export const Ticket: React.FC<TTicketProps> = ({ ticket }) => {
   return (
     <div className="ticket">
       <div className="ticket-header">
