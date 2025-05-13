@@ -10,8 +10,6 @@ export type TTicketProps = {
   shownCount: number;
   setShownCount: React.Dispatch<React.SetStateAction<number>>;
   filters: TFilter[];
-  getTime: (segment: TSegment) => string;
-  formatTransfer: (count: number) => string;
 };
 
 // TICKETLIST
@@ -21,13 +19,19 @@ export type TTicketListProps = {
   shownCount: number;
   setShownCount: React.Dispatch<React.SetStateAction<number>>;
   filters: TFilter[];
-  getTime: (segment: TSegment) => string;
-  formatTransfer: (count: number) => string;
   shownMoreTickets: () => void;
 };
-export type TFilter = keyof typeof LABEL_TEXT;
 
-export const LABEL_TEXT = {
+export const allOptions = [
+  "ALL",
+  "NO_TRANSFER",
+  "ONE_TRANSFER",
+  "TWO_TRANSFER",
+  "THREE_TRANSFER",
+];
+export type TFilter = (typeof allOptions)[number];
+
+export const LABEL_TEXT: Record<TFilter, string> = {
   ALL: "Все",
   NO_TRANSFER: "Без пересадок",
   ONE_TRANSFER: "1 пересадка",
@@ -41,7 +45,6 @@ export type TFilterProps = {
 };
 
 export type TTabs = {
-  setTabs: (filter: TTabsProps) => void;
   tabs: TTabsProps;
 };
 export type TTabsProps = "cheap" | "fast" | "optimal";

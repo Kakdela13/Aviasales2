@@ -8,8 +8,6 @@ export const TicketList: React.FC<TTicketListProps> = ({
   shownCount,
   setShownCount,
   filters,
-  getTime,
-  formatTransfer,
   shownMoreTickets,
 }) => {
   return (
@@ -22,8 +20,6 @@ export const TicketList: React.FC<TTicketListProps> = ({
           setShownCount={setShownCount}
           shownCount={shownCount}
           filters={filters}
-          getTime={getTime}
-          formatTransfer={formatTransfer}
         />
       ))}
       {shownCount < tickets.length && (
